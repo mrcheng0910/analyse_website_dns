@@ -40,7 +40,12 @@ def extract_pkt_dns(pkt_dns):
         # print "响应报文"
         # print pkt_dns._all_fields
         # pkt_dns.pretty_print()
-        dns_response['qry_name'] = pkt_dns.qry_name  # 查询的域名
+        try:
+            dns_response['qry_name'] = pkt_dns.qry_name  # 查询的域名
+        except AttributeError:
+            print "qry_name error"
+            print pkt_dns._all_fields
+            dns_response['qry_name']=""
         try:
             dns_response['resp_ttl'] = pkt_dns.resp_ttl  # 生存时间
         except AttributeError:
@@ -98,13 +103,22 @@ def extract_answers_details(pkt_dns,count_answers,count_auth_rr):
         exc_domain = pkt_list[i][domain_last_index+1:].strip()
         exc_domain_list = exc_domain.split(',')
 
-        dm_type = exc_domain_list[0].strip().split(' ')[1]
-        dm_class = exc_domain_list[1].strip().split(' ')[1]
-        dm_data= exc_domain_list[2].strip().split(' ')[1]
-        answer_tmp['domain_name'] = domain_name
-        answer_tmp['dm_type'] = dm_type
-        answer_tmp['dm_class'] = dm_class
-        answer_tmp['dm_data'] = dm_data
+        try:
+
+            dm_type = exc_domain_list[0].strip().split(' ')[1]
+            dm_class = exc_domain_list[1].strip().split(' ')[1]
+            dm_data= exc_domain_list[2].strip().split(' ')[1]
+        except:
+            pkt_dns.pretty_print()
+            print pkt_dns._all_fields
+        try:
+            answer_tmp['domain_name'] = domain_name
+            answer_tmp['dm_type'] = dm_type
+            answer_tmp['dm_class'] = dm_class
+            answer_tmp['dm_data'] = dm_data
+        except:
+            print "error"
+            pkt_dns.pretty_print()
 
         answers_list.append(answer_tmp)
 
