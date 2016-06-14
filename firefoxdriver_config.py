@@ -1,17 +1,9 @@
 # encoding:utf-8
+"""
+火狐浏览器配置参数，使浏览器尽可能的赶紧，不会造成多余dns查询
+"""
 from selenium import webdriver
-from multiprocessing import Process
-from analysis_dns import extract_capture
-from add import capture_dns
-import time
-from pyvirtualdisplay import Display
 
-display = Display(visible=0, size=(800, 600))
-display.start()
-
-# chrome_options = webdriver.ChromeOptions()
-# chrome_options.add_argument('--disable-application-cache')
-# driver = webdriver.Chrome('./chromedriver',chrome_options=chrome_options)  # chrome浏览器驱动
 
 # 禁止浏览器使用缓存等内容
 profile = webdriver.FirefoxProfile()
@@ -87,35 +79,3 @@ profile.set_preference("social.directories", "")
 profile.set_preference("security.ssl.errorReporting.url", "")
 profile.set_preference("privacy.trackingprotection.introURL", "")
 profile.set_preference("lightweightThemes.getMoreURL","")
-
-driver = webdriver.Firefox(firefox_profile=profile) # 火狐浏览器驱动，该浏览器较为干净
-
-
-def visit_url(url=None):
-
-    driver.get(url)
-    driver.implicitly_wait(10)
-
-
-def main():
-    # urls = ['163.com','weibo.com.cn','hitwh.edu.cn','ifeng.com','hit.edu.cn','sina.com.cn']
-    urls = ['hao123.com']
-    for i in urls:
-        np = Process(target=extract_capture,args=[i,30])
-        test = Process(target=capture_dns)
-        mp = Process(target=visit_url,args=['http://www.'+i])
-
-        np.start()
-
-        test.start()
-        time.sleep(2)   # 先打开网卡监控
-        mp.start()
-        np.join(100)
-        test.join(100)
-        mp.join(120)
-
-    driver.quit()
-    display.stop()
-
-if __name__ == '__main__':
-    main()

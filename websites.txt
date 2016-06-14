@@ -1,3 +1,4 @@
 baidu.com
 hitwh.edu.cn
-#ifeng.com
+ifeng.com
+hao123.com
