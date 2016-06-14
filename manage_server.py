@@ -14,8 +14,8 @@ from visit_websites import main
 
 if __name__ == "__main__":
 
-    schedule.every(3).hours.do(main)
-    schedule.every(3).minutes.do(main)
+    # schedule.every(3).hours.do(main)
+    schedule.every(5).minutes.do(main)
 
 
     while True:

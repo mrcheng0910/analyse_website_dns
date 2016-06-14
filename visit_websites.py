@@ -14,24 +14,30 @@ import datetime
 
 # chrome_options = webdriver.ChromeOptions()
 # chrome_options.add_argument('--disable-application-cache')
-# driver = webdriver.Chrome('./chromedriver',chrome_options=chrome_options)  # chrome浏览器驱动
+# driver = webdriver.Chrome('./chrome_driver/chromedriver',chrome_options=chrome_options)  # chrome浏览器驱动
 
-driver = webdriver.Firefox(firefox_profile=profile) # 火狐浏览器驱动，该浏览器较为干净
-SITE_LIST = os.path.dirname(__file__) + "websites.txt"
+
+SITE_LIST = os.path.dirname(__file__) + "/websites.txt"
+
 
 def visit_url(url=None):
     """
     使用浏览器打开网址
     :param url: 待打开的网址
     """
+
     print str(datetime.datetime.now()) + " 打开网页: " + url
     driver.get(url)
-    driver.implicitly_wait(10)
+    # driver.implicitly_wait(10)
+    time.sleep(10)
+
     print str(datetime.datetime.now()) + " 关闭网页: " + url
 
 
 def main():
 
+    global driver
+    driver = webdriver.Firefox(firefox_profile=profile)  # 火狐浏览器驱动，该浏览器较为干净
     if os.path.exists('error_screen'):
         pass
     else:
@@ -57,7 +63,7 @@ def main():
                 print "子进程出错"
                 continue
 
-        driver.quit()
+    driver.quit()
         # display.stop()
 
 # if __name__ == '__main__':

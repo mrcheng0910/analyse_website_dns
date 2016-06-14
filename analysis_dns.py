@@ -208,7 +208,7 @@ def extract_capture(web_site=None, timeout=20):
         pkt_detail['dns'] = extract_pkt_dns(pkt.dns)
         detail.append(pkt_detail)
 
-    # insert(web_site,pkt_count=pkt_count,detail=detail)
+    insert(web_site,pkt_count=pkt_count,detail=detail)
     print str(datetime.datetime.now()) + " 结束获取dns包: " + web_site
 
 # if __name__ == '__main__':
