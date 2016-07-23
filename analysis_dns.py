@@ -33,7 +33,11 @@ def extract_pkt_dns(pkt_dns):
     if pkt_dns.flags_response == '0':    # 查询报文
         # print "查询报文"
         # print pkt_dns._all_fields
-        dns_query['qry_name'] = pkt_dns.qry_name
+        try:
+            dns_query['qry_name'] = pkt_dns.qry_name
+        except AttributeError:
+            print "qry qry_name error"
+            dns_query['qry_name'] = ""
         # print dns_query
         return dns_query
 

@@ -5,7 +5,7 @@
 
 from pymongo import MongoClient
 import pymongo
-from datetime import datetime,timedelta
+from datetime import datetime,timedelta,date
 import tldextract
 
 def get_db():
@@ -51,12 +51,35 @@ def get_domain_collection(domain=None):
     return db[collection_name]
 
 
-def find_domain_info(domain=None, datetime=None):
-    # db = get_db()
-    print get_domain_collection('baidu.com')
+def get_domain_info(domain=None,start_date=datetime.utcnow()+ timedelta(hours=8),end_date=datetime.utcnow()+timedelta(hours=8)):
+    """
+    获取指定域名和日期的探测数据，根据开始日期和结束日期，从数据库中获取当天数据
+    :param domain: 域名
+    :param start_date: 开始日期
+    :param end_date: 结束日期
+    :return:
+    """
+    if start_date.date() == end_date.date():    # 获得域名的当天探测数据
+        domain_collection = get_domain_collection(domain)
+        return domain_collection.find({'visit_time':{'$lte':end_date,'$gte':start_date.replace(hour=0,minute=0,second=0,microsecond=0)}})
+
+    # print get_domain_collection('baidu.com')
 
 
-# find_domain_info()
+def extract_domain_field_info(domain_dns_pkt = None):
+    """
+
+    :return:
+    """
+    if domain_dns_pkt is None:
+        return
+    for pkt in domain_dns_pkt:
+        print pkt['pkt_count'],pkt['visit_time']
+
+
+
+a = get_domain_info('baidu.com')
+extract_domain_field_info(a)
 
 
 def insert(coll_name=None,pkt_count=0, detail=None):
