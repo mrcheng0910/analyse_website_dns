@@ -55,12 +55,13 @@ def main():
                 np = Process(target=extract_capture,args = [domain.strip(), 35])
                 mp = Process(target=visit_url,args=[url,driver])
                 np.start()
-                time.sleep(2)   # 先打开网卡监控
+                time.sleep(3)   # 先打开网卡监控
                 mp.start()
 
                 np.join(60)
                 mp.join(60)
                 print str(datetime.datetime.now()) + " 结束探测网页: " + url
+                time.sleep(10)  # 暂停，开始下一网址探测
             except:
                 print "子进程出错"
                 continue
@@ -68,5 +69,5 @@ def main():
     driver.quit()
         # display.stop()
 
-# if __name__ == '__main__':
-#     main()
+#if __name__ == '__main__':
+ #   main()
