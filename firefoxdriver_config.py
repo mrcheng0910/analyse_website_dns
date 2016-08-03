@@ -51,6 +51,7 @@ def get_profile():
     profile.set_preference("extensions.update.enabled", False)
     profile.set_preference("extensions.update.notifyUser", False)
     profile.set_preference("extensions.blocklist.enabled",False)
+    profile.set_preference("extensions.systemAddon.update.url","")
     #loop config
     profile.set_preference("loop.feedback.manualFormURL", "")
     profile.set_preference("loop.gettingStarted.url", "")
@@ -61,6 +62,7 @@ def get_profile():
     profile.set_preference("app.support.e10sAccessibilityUrl","")
     profile.set_preference("app.feedback.baseURL","")
     profile.set_preference("app.support.baseURL", "")
+    profile.set_preference("app.update.url","")
     #plugins config
     profile.set_preference("plugins.update.url", "")
     #privacy config
@@ -81,4 +83,16 @@ def get_profile():
     profile.set_preference("security.ssl.errorReporting.url", "")
     profile.set_preference("privacy.trackingprotection.introURL", "")
     profile.set_preference("lightweightThemes.getMoreURL","")
+
+    #media
+    profile.set_preference("media.gmp-eme-adobe.enabled",False)
+    profile.set_preference("media.gmp-manager.cert.checkAttributes",False)
+    profile.set_preference("media.gmp-manager.cert.requireBuiltIn", False)
+    profile.set_preference("media.gmp-manager.certs.1.commonName", "")
+    profile.set_preference("media.gmp-manager.certs.2.commonName", "")
+    profile.set_preference("media.gmp-manager.url", "")
+    profile.set_preference("media.gmp-provider.enabled", False)
+    profile.set_preference("media.gmp-widevinecdm.enabled", False)
+
+
     return profile
