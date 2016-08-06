@@ -61,7 +61,7 @@ def main():
                 np.join(60)
                 mp.join(60)
                 print str(datetime.datetime.now()) + " 结束探测网页: " + url
-                time.sleep(10)  # 暂停，开始下一网址探测
+                time.sleep(60)  # 暂停，开始下一网址探测
             except:
                 print "子进程出错"
                 continue

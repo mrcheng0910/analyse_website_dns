@@ -1,6 +1,6 @@
 # encoding:utf-8
 """
-火狐浏览器配置参数，使浏览器尽可能的赶紧，不会造成多余dns查询
+火狐浏览器配置参数，使浏览器尽可能的干净，不会造成多余dns查询
 """
 from selenium import webdriver
 
@@ -19,6 +19,8 @@ def get_profile():
     profile.set_preference("browser.safebrowsing.provider.mozilla.updateURL", "")
     profile.set_preference("browser.safebrowsing.downloads.remote.enabled", False)
     profile.set_preference("browser.safebrowsing.downloads.remote.url","")
+    profile.set_preference("browser.safebrowsing.provider.google.gethashURL","")
+    profile.set_preference("browser.safebrowsing.provider.google.reportURL","")
     profile.set_preference("browser.newtabpage.enhanced",False)
     profile.set_preference("browser.aboutHomeSnippets.updateUrl","")
     profile.set_preference("browser.selfsupport.url", "")
@@ -32,6 +34,7 @@ def get_profile():
     profile.set_preference("browser.search.geoip.url", "")
     profile.set_preference("browser.geolocation.warning.infoURL","")
     profile.set_preference("browser.usedOnWindows10.introURL","")
+    profile.set_preference("gecko.handlerService.schemes.mailto.1.uriTemplate","")
     # network config
     profile.set_preference("network.dns.disablePrefetch",True)
     profile.set_preference("network.http.use-cache", False)
@@ -93,6 +96,13 @@ def get_profile():
     profile.set_preference("media.gmp-manager.url", "")
     profile.set_preference("media.gmp-provider.enabled", False)
     profile.set_preference("media.gmp-widevinecdm.enabled", False)
+
+    # 禁止证书，ocsp.digicert.com？待验证
+    profile.set_preference("services.sync.prefs.sync.security.OCSP.require",False)
+    profile.set_preference("services.sync.prefs.sync.security.OCSP.enabled",False)
+    profile.set_preference("security.ssl.enable_ocsp_stapling",False)
+    profile.set_preference("security.ssl.enable_ocsp_must_staple",False)
+    profile.set_preference("security.OCSP.enabled",0)
 
 
     return profile

@@ -4,6 +4,7 @@
 """
 
 from pymongo import MongoClient
+from datetime import datetime,timedelta
 
 def get_db():
     """
@@ -14,6 +15,7 @@ def get_db():
     client = MongoClient()
     db = client.websites_dns
     return db
+
 
 def get_domain_collection(domain=None):
     """
@@ -29,3 +31,18 @@ def get_domain_collection(domain=None):
     return db[collection_name]
 
 
+def insert(coll_name='data_info', result=None):
+    """
+    插入基础数据
+    :param coll_name:
+    :param pkt_count:
+    :param result:
+    :return:
+    """
+
+    if coll_name == None or result == None:
+        return
+    db = get_db()
+    collection = db[coll_name]
+    result = collection.insert_one(result)
+    print "result.inserted_id: {}".format(result.inserted_id)
