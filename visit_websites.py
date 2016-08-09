@@ -18,7 +18,8 @@ import datetime
 
 
 # SITE_LIST = os.path.dirname(__file__) + "./websites.txt"
-SITE_LIST = "./websites.txt"
+# SITE_LIST = "./websites.txt"
+SITE_LIST="./1.txt"
 
 
 def visit_url(url=None,driver=None):

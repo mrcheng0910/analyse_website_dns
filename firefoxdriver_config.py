@@ -97,12 +97,13 @@ def get_profile():
     profile.set_preference("media.gmp-provider.enabled", False)
     profile.set_preference("media.gmp-widevinecdm.enabled", False)
 
-    # 禁止证书，ocsp.digicert.com？待验证
+    # 禁止证书，ocsp.digicert.com？待验证 ss.symcd.com?
     profile.set_preference("services.sync.prefs.sync.security.OCSP.require",False)
     profile.set_preference("services.sync.prefs.sync.security.OCSP.enabled",False)
     profile.set_preference("security.ssl.enable_ocsp_stapling",False)
     profile.set_preference("security.ssl.enable_ocsp_must_staple",False)
     profile.set_preference("security.OCSP.enabled",0)
+
 
 
     return profile
