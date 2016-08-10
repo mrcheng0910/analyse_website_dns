@@ -11,7 +11,7 @@ import pyshark
 from db_manage import insert
 import datetime
 
-def capture_dns(interface='eth0', timeout=30):
+def capture_dns(interface='ens33', timeout=30):
     """
     从网卡抓取dns包
     timeout: 抓包时间，默认为30s

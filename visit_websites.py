@@ -19,6 +19,8 @@ import datetime
 
 # SITE_LIST = os.path.dirname(__file__) + "./websites.txt"
 # SITE_LIST = "./websites.txt"
+
+
 SITE_LIST="./1.txt"
 
 
@@ -62,7 +64,7 @@ def main():
                 np.join(60)
                 mp.join(60)
                 print str(datetime.datetime.now()) + " 结束探测网页: " + url
-                time.sleep(60)  # 暂停，开始下一网址探测
+                time.sleep(5)  # 暂停，开始下一网址探测
             except:
                 print "子进程出错"
                 continue
@@ -70,5 +72,5 @@ def main():
     driver.quit()
         # display.stop()
 
-#if __name__ == '__main__':
- #   main()
+# if __name__ == '__main__':
+   # main()

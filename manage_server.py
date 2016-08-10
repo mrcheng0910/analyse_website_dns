@@ -15,7 +15,7 @@ from visit_websites import main
 if __name__ == "__main__":
 
     # schedule.every(2).hours.do(main)
-    schedule.every(15).minutes.do(main)
+    schedule.every(2).minutes.do(main)
 
     while True:
         schedule.run_pending()
