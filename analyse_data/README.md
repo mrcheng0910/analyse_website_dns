@@ -8,21 +8,21 @@
 
 实现IP定位功能，开源代码，在githup上
 
-#### 目录graph
+* #### 目录graph
 保存生成的图表等内容
 
-#### domain_collection.py
+* #### domain_collection.py
 
 数据库操作文件，数据库操作功能都在该文件中进行实现
 
-#### extract_domain_pkt.py
+* #### extract_domain_pkt.py
 
 整理站点的多次探测数据，进行粗过滤后，存入数据库中
 
-#### domain_relation.py
+* #### domain_relation.py
 
 展示站点各个域名的关联信息，不同簇使用不同颜色进行标记
 
-#### show_domain_type.py
+* #### show_domain_type.py
 
 展示站点中嵌入式域名/cname/IP的关联关系
