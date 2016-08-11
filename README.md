@@ -6,5 +6,9 @@
 
 
 ## NOTE
-selenium==2.3.*
-firefoxwebdriver==46
+### collect base data
+1. selenium==2.3.*
+2. firefoxwebdriver==46
+
+### analyse data
+

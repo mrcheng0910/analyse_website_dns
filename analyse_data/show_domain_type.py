@@ -79,11 +79,15 @@ def main1():
     :return:
     """
     edges = []
+    node_main = []
+    node_cname = []
+    node_ip = []
     domain_name = 'jd.com'
     domain_pkts = get_data(domain_name)
     from collections import defaultdict
     node_dict = defaultdict(set)
     for i in domain_pkts[0]['details']:
+        node_main.append(i['qry_name'])
         for v in i['answers']:
             if v['dm_type'] == 'CNAME':
                 node_dict[v['domain_name']].add('main')
@@ -92,21 +96,13 @@ def main1():
                 node_dict[v['dm_data']].add('ip')
                 node_dict[v['domain_name']].add('main')
             edges.append((v['domain_name'], v['dm_data']))
-    node_cat = {}
-    node_main = []
-    node_cname = []
-    node_ip = []
+
     for i in node_dict:
 
         if 'ip' in list(node_dict[i]):
-            node_cat[i] = 'ip'
             node_ip.append(i)
         elif 'cname' in list(node_dict[i]):
-            node_cat[i] = 'cname'
             node_cname.append(i)
-        else:
-            node_main.append(i)
-            node_cat[i] = 'main'
 
     plt.figure(1, figsize=(8, 6))
     G = nx.Graph()

@@ -73,7 +73,7 @@ if __name__ == '__main__':
         c = [random.random()] * nx.number_of_nodes(g) # random color...
         nx.draw(g,
              pos,
-             node_size=40,
+             node_size=30,
              node_color=c,
              vmin=0.0,
              vmax=1.0,

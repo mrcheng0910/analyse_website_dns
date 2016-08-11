@@ -4,7 +4,7 @@
 
 ### 文件功能介绍
 
-#### 目录ip_location
+* #### 目录ip_location
 
 实现IP定位功能，开源代码，在githup上
 
@@ -26,3 +26,7 @@
 * #### show_domain_type.py
 
 展示站点中嵌入式域名/cname/IP的关联关系
+
+* #### analyse_content.py
+
+分析网站的详细内容，包括嵌入的域名/cname/ip，簇，集合等信息
