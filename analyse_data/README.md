@@ -30,3 +30,7 @@
 * #### analyse_content.py
 
 分析网站的详细内容，包括嵌入的域名/cname/ip，簇，集合等信息
+
+* #### dir_graph_analyse.py
+
+分析有向图的信息

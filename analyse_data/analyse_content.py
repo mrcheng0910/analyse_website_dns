@@ -53,6 +53,30 @@ def manage_data(domain='163.com'):
     print "cname数量",cname_count
     print "IP数量",ip_count
     print "生成集合数量",sub_graph_count
+    draw_sub_graph(visit_total,domain_count,cname_count,ip_count,sub_graph_count)
+
+
+def draw_sub_graph(visit_total,domain_count,cname_count,ip_count,sub_graph_count):
+
+    N = 5
+    ind = np.arange(1, N + 1)
+    width = 0.7
+    plt.figure(1, figsize=(8, 6))
+    data = [domain_count,cname_count,ip_count,sub_graph_count,visit_total]
+    plt.bar(ind, data, width, color='c', align='center')
+
+    x_min, x_max = ind.min(), ind.max()
+    plt.xlim(x_min - 1, x_max + 1)
+    plt.ylabel('The numbers')
+    plt.xlabel('Categories')
+    plt.xticks(ind,('Domain','CNAME','IP','Sub_Graph','DNS Hits'))
+    plt.yticks()
+    # 设置legend
+    for a, b in zip(ind, data):
+        plt.text(a, b, str(b))
+
+    plt.savefig('./graph/domain_overall.png', dpi=75)
+    plt.show()
 
 
 
@@ -85,10 +109,10 @@ def sub_graph(edges,node_main,node_ip,node_cname):
         sub_graph_domain_count[len(list(set(g.nodes()).intersection(set(node_main))))] += 1
         sub_graph_cname_count[len(list(set(g.nodes()).intersection(set(node_cname))))] += 1
         sub_graph_ip_count[len(list(set(g.nodes()).intersection(set(node_ip))))] += 1
-    print sub_graph_set
-    print sub_graph_domain_count
-    print sub_graph_cname_count
-    print sub_graph_ip_count
+    # print sub_graph_set
+    # print sub_graph_domain_count
+    # print sub_graph_cname_count
+    # print sub_graph_ip_count
     draw_graph(test)
     return sub_graph_count
 

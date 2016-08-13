@@ -214,5 +214,5 @@ def main(domain_name,start_date,end_date):
     insert('data_info',results)
 
 if __name__ == '__main__':
-    main('ifeng.com','2016-6-25','2016-8-6')
+    main('amazon.cn','2016-6-25','2016-8-6')
     searcher.close()
