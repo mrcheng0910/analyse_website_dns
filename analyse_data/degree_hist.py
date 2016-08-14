@@ -7,9 +7,6 @@
 from domain_collection import get_domain_collection
 import networkx as nx
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-import random
-from networkx.drawing.nx_pydot import graphviz_layout
 
 
 def get_data(domain='baidu.com'):
@@ -71,50 +68,33 @@ def manage_data(domain_name):
     DG = nx.DiGraph()
     DG.add_edges_from(edges)
 
-    ass =  nx.degree_assortativity_coefficient(DG)
-    nodes_count = len(node_cname)+len(node_ip)+len(node_main)
-    print nodes_count
-    edges_count = len(edges)
-    average_degree = sum(nx.degree(DG).values())
-    print domain_name,ass
-    print nx.density(DG)
-    return nodes_count,edges_count, ass,average_degree,nx.degree_histogram(DG)
+    in_degree_val = DG.in_degree().values()
+    max_in_degree = max(in_degree_val)
+
+    from collections import Counter
+    in_degree_dict = Counter(in_degree_val)
+    in_degree_hist = []
+    for i in range(max_in_degree+1):
+        print i
+        if i in in_degree_dict.keys():
+            in_degree_hist.append(in_degree_dict[i])
+        else:
+            in_degree_hist.append(0)
+    print in_degree_hist
+    return nx.degree_histogram(DG),in_degree_hist
 
 
 def main():
 
-    # domains = ['baidu.com','toutiao.com','ifeng.com','taobao.com','hitwh.edu.cn','163.com','jd.com','qq.com','baike.com','amazon.cn',
-    #            'alibaba.com','alipay.com','360.cn','360.com']
-    domains = ['taobao.com']
-    x1 = []
-    y1 = []
-    z1 =[]
-    x2 = []
-    y2 = []
-    z2 = []
-    for i in domains:
-        nodes,edges,ass,av,hist = manage_data(i)
-        if ass<=0:
-            x1.append(nodes)
-            y1.append(edges)
-            z1.append(av)
-        else:
-            x2.append(nodes)
-            y2.append(edges)
-            z2.append(av)
-    # plt.subplot(111, projection='3d')
+    domain = 'ifeng.com'
+    hist,hist1 = manage_data(domain)
     fig = plt.figure()
     ax = fig.add_subplot(111)
     import numpy as np
-    x = np.arange(len(hist))
-    print x
-    ax.plot(x,[float(i)/sum(hist) for i in hist ])
-    # print x1,y1,x2,y2,z1,z2
-    # ax.scatter(x1, y1, marker='^', c='r')
-    # ax.scatter(x2, y2,  marker='o', c='c')
-    # ax.set_xlabel('X Label')
-    # ax.set_ylabel('Y Label')
-    # ax.set_zlabel('Z Label')
+    x= np.arange(len(hist))
+    x1 = np.arange(len(hist1))
+    ax.plot(x, [float(i)/sum(hist) for i in hist ],'b-')
+    # ax.plot(x1,[float(i)/sum(hist1) for i in hist1],'r-')
     plt.show()
 
 if __name__ == '__main__':
