@@ -83,16 +83,22 @@ def manage_data(domain_name):
     for w in nx.weakly_connected_component_subgraphs(DG):
         domains = []
         ips = []
+        cnames = []
         for i in w.nodes_iter(data=True):
             if i[1]['category'] == 'ip':
                 ips.append(i[0])
             if i[1]['category'] == 'domain':
                 domains.append(i[0])
+            if i[1]['category'] == 'cname':
+                cnames.append(i[0])
 
         for domain in domains:
             for ip in ips:
                 try:
                     # print nx.dijkstra_path(w,domain,ip) # show the path
+                    if nx.dijkstra_path_length(w,domain,ip)==6:
+                        print  nx.dijkstra_path(w,domain,ip)
+                        # draw_relation_graph(w, ips, domains, cnames)
                     path_length.append(nx.dijkstra_path_length(w,domain,ip))  # add the lenth of path
                 except:  # if between the source node and the destination has no path
                     pass
@@ -138,12 +144,11 @@ def manage_data(domain_name):
             'weight': 'normal',
             'size': 14,
             }
-    plt.text(x[len(x)-2], 400,
+    plt.text(x[len(x)-2], 100,
              'the average path\n   length: '+ str(round(average_path,2)),
              fontdict=font,
              bbox=dict(facecolor='k', alpha=0.3)
              )
-
 
     x_min, x_max = min(x), max(x)
     plt.xlim(x_min - 1, x_max + 1)
@@ -154,6 +159,22 @@ def manage_data(domain_name):
     plt.savefig('./graph/'+domain_name+'_graph_path.png', dpi=75)
 
     plt.show()
+
+
+def draw_relation_graph(G,node_ip,node_main,node_cname):
+    from networkx.drawing.nx_pydot import graphviz_layout
+    node_size =100
+    pos = graphviz_layout(G, prog="fdp")  # neato fdp
+    nx.draw_networkx_nodes(G, pos=pos, node_size=node_size, nodelist=node_ip, node_color='red', label="IP")
+    nx.draw_networkx_nodes(G, pos=pos, node_size=node_size, nodelist=node_cname, node_color='green', label="CNAME")
+    nx.draw_networkx_nodes(G, pos=pos, node_size=160, nodelist=node_main, node_color='blue', label="Main")
+    nx.draw_networkx_edges(G, pos=pos)
+    # nx.draw_networkx_labels(G, pos, font_size=10) # show the node labe
+    plt.legend(loc='lower center', ncol=3, shadow=True, numpoints=1)
+    plt.axis('off')
+    plt.savefig('./graph/dd_type.png', dpi=75)
+    plt.show()
+
 
 
 def main():
